@@ -1,70 +1,80 @@
-# NEWS
+# Introduction
 
 This file contains significant user-visible changes for each version.
-For full changelog, use `git log`
+For full changelog, use `git log`.
 
-[We are currently in the process of update the code-base to use the wlroots
-scene-graph API](https://github.com/johanmalm/labwc/tree/scene)
+The format is based on [Keep a Changelog] and this project adheres to
+[Semantic Versioning].
 
-Tag 0.5.0 is the last minor release before the move to scene-graph. An
-associated v0.5 branch exists for patches and patch-tags if needed. It's
-not envisaged that new features will be added on that branch though.
+We are currently in the process of updating the code-base to use the
+wlroots scene-graph API and have decided to use three branches:
 
-## 0.5.0 (2022-02-18)
+- `v0.5` - the last minor release before the move to scene-graph. It is
+  not envisaged that new features will be added on that branch, it's
+  just there for fixes and minor releases.
 
-This release contains the following two breaking changes:
+- `scene-graph` - where the active porting is taking place
 
-1. Disabling outputs now causes views to be re-arranged, so in the
-   context of idle system power management (for example when using
-   swaylock), it is no longer suitable to call wlr-randr {--off,--on}
-   to enable/disable outputs.
+- `master` - which is mostly frozen to make the rebase/merge a bit easier
 
-2. The "Drag" mouse-event and the unmaximize-on-move feature require
-   slightly different `<mousebind>` settings to feel natural, so suggest
-   updating any local `rc.xml` settings in accordance with
-   `docs/rc.xml.all`
+# Summary of Releases
+
+| Date       | Release notes | wlroots version |
+|------------|---------------|-----------------|
+| 2022-02-18 | [0.5.0]       | 0.15.1          |
+| 2021-12-31 | [0.4.0]       | 0.15.0          |
+| 2021-06-28 | [0.3.0]       | 0.14.0          |
+| 2021-04-15 | [0.2.0]       | 0.13.0          |
+| 2021-03-05 | [0.1.0]       | 0.12.0          |
+
+## [0.5.0] - 2022-02-18
 
 As usual, this release contains a bunch of fixes and improvements, of
 which the most notable feature-type changes are listed below. A big
 thank you to @ARDiDo, @Consolatis and @jlindgren90 for much of the hard
 work.
 
+### Added
+
 - Render overlay layer popups to support sfwbar (issue #239)
-    
 - Support HiDPI on-screen-display images for outputs with different scales
-
 - Reload environment variables on SIGHUPi (issue #227)
-
 - Add client menu
-
 - Allow applications to start in fullscreen
-
 - Add config option `<core><cycleViewPreview>` to preview the contents
   of each view when cycling through them (for example using alt-tab).
-
 - Allow mouse movements to trigger SnapToEdge. When dragging a view, move
   the cursor outside an output to snap in that direction.
-
 - Unmaximize on Move
-
 - Support wlroots environment variable `WLR_{WL,X11}_OUTPUTS` for running
   in running nested in X11 or a wlroots compositor.
-
 - Support pointer gestures (pinch/swipe)
-
 - Adjust views to account for output layout changes
 
-## 0.4.0 (2021-12-31)
+### Changed
+
+This release contains the following two breaking changes:
+
+- Disabling outputs now causes views to be re-arranged, so in the
+  context of idle system power management (for example when using
+  swaylock), it is no longer suitable to call wlr-randr {--off,--on}
+  to enable/disable outputs.
+- The "Drag" mouse-event and the unmaximize-on-move feature require
+  slightly different `<mousebind>` settings to feel natural, so suggest
+  updating any local `rc.xml` settings in accordance with
+  `docs/rc.xml.all`
+
+## [0.4.0] - 2021-12-31
 
 Compile with wlroots 0.15.0
 
 This release contains lots of internal changes, fixes and  new features.
 A big thank you goes out to @ARDiDo, @bi4k8, @Joshua-Ashton,
 @jlindgren90, @Consolatis, @telent and @apbryan. The most notable
-feature-type changes are listed below:
+feature-type changes are listed below.
 
-- The config option `<lab><xdg_shell_server_side_deco>` has changed to
-  `<core><decoration>` (breaking change)
+### Added
+
 - Add support for the following wayland protocols:
     - `pointer_constraints` and `relative_pointer` - mostly for gaming.
       Written-by: @Joshua-Ashton
@@ -124,18 +134,27 @@ feature-type changes are listed below:
 - Support `XCURSOR_THEME` and `XCURSOR_SIZE` environment variables
 - Support submenus including inline definitions
 
-## 0.3.0 (2021-06-28)
+### Changed
+
+- The config option `<lab><xdg_shell_server_side_deco>` has changed to
+  `<core><decoration>` (breaking change)
+
+## [0.3.0] - 2021-06-28
 
 Compile with wlroots 0.14.0
+
+### Added
 
 - Add config options `<focus><followMouse>` and `<focus><raiseOnFocus>`
   (provided-by: Mikhail Kshevetskiy)
 - Do not use Clearlooks-3.4 theme by default, just use built-in theme
 - Fix bug which triggered Qt application segfault
 
-## 0.2.0 (2021-04-15)
+## [0.2.0] - 2021-04-15
 
 Compile with wlroots 0.13.0
+
+### Added
 
 - Support wlr-output-management protcol for setting output position, scale
   and orientation with kanshi or similar
@@ -144,9 +163,11 @@ Compile with wlroots 0.13.0
 - Add labwc-environment(5)
 - Call `wlr_output_enable_adaptive_sync()` if `LABWC_ADAPTIVE_SYNC` set
 
-## 0.1.0 (2021-03-05)
+## [0.1.0] - 2021-03-05
 
 Compile with wlroots 0.12.0 and wayland-server >=1.16
+
+### Added
 
 - Support xdg-shell and optionally xwayland-shell
 - Show xbm buttons for maximize, iconify and close
@@ -160,16 +181,8 @@ Compile with wlroots 0.12.0 and wayland-server >=1.16
 - Support basic actions including Execute, Exit, NextWindow, Reconfigure and
   ShowMenu
 
-## Previous releases
-
-| Date       | Release notes | wlroots version |
-|------------|---------------|-----------------|
-| 2022-02-18 | [0.5.0]       | 0.15.1          |
-| 2021-12-31 | [0.4.0]       | 0.15.0          |
-| 2021-06-28 | [0.3.0]       | 0.14.0          |
-| 2021-04-15 | [0.2.0]       | 0.13.0          |
-| 2021-03-05 | [0.1.0]       | 0.12.0          |
-
+[Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
+[Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 [0.5.0]: https://github.com/labwc/labwc/releases/tag/0.5.0
 [0.4.0]: https://github.com/labwc/labwc/releases/tag/0.4.0
 [0.3.0]: https://github.com/labwc/labwc/releases/tag/0.3.0
