@@ -22,7 +22,6 @@
 #include "buffer.h"
 #include "node.h"
 
-#define MENUWIDTH (110)
 #define MENU_ITEM_PADDING_Y (4)
 #define MENU_ITEM_PADDING_X (7)
 
@@ -53,7 +52,7 @@ menu_create(struct server *server, const char *id, const char *label)
 	menu->label = strdup(label);
 	menu->parent = current_menu;
 	menu->server = server;
-	menu->size.width = MENUWIDTH;
+	menu->size.width = rc.menu_width;
 	/* menu->size.height will be kept up to date by adding items */
 	menu->scene_tree = wlr_scene_tree_create(&server->menu_tree->node);
 	wlr_scene_node_set_enabled(&menu->scene_tree->node, false);
@@ -95,8 +94,9 @@ item_create(struct menu *menu, const char *text)
 		menu->item_height = font_height(&font) + 2 * MENU_ITEM_PADDING_Y;
 	}
 
+	const int menuwidth = rc.menu_width;
 	int x, y;
-	int item_max_width = MENUWIDTH - 2 * MENU_ITEM_PADDING_X;
+	int item_max_width = menuwidth - 2 * MENU_ITEM_PADDING_X;
 	struct wlr_scene_node *parent = &menu->scene_tree->node;
 
 	/* Font buffer */
@@ -107,10 +107,10 @@ item_create(struct menu *menu, const char *text)
 
 	/* Item background nodes */
 	menuitem->normal.background = &wlr_scene_rect_create(parent,
-		MENUWIDTH, menu->item_height,
+		menuwidth, menu->item_height,
 		theme->menu_items_bg_color)->node;
 	menuitem->selected.background = &wlr_scene_rect_create(parent,
-		MENUWIDTH, menu->item_height,
+		menuwidth, menu->item_height,
 		theme->menu_items_active_bg_color)->node;
 
 	/* Font nodes */
@@ -385,7 +385,7 @@ menu_configure(struct menu *menu, int lx, int ly, enum menu_align align)
 	}
 
 	if (align & LAB_MENU_OPEN_LEFT) {
-		lx -= MENUWIDTH - theme->menu_overlap_x;
+		lx -= rc.menu_width - theme->menu_overlap_x;
 	}
 	if (align & LAB_MENU_OPEN_TOP) {
 		ly -= menu->size.height;
@@ -404,7 +404,7 @@ menu_configure(struct menu *menu, int lx, int ly, enum menu_align align)
 			continue;
 		}
 		if (align & LAB_MENU_OPEN_RIGHT) {
-			new_lx = lx + MENUWIDTH - theme->menu_overlap_x;
+			new_lx = lx + rc.menu_width - theme->menu_overlap_x;
 		} else {
 			new_lx = lx;
 		}

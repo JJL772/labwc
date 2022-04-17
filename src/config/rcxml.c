@@ -362,6 +362,8 @@ entry(xmlNode *node, char *nodename, char *content)
 		fill_font(nodename, content, font_place);
 	} else if (!strcmp(nodename, "size.font.theme")) {
 		fill_font(nodename, content, font_place);
+	} else if (!strcmp(nodename, "menuwidth.theme")) {
+		rc.menu_width = atoi(content);
 	} else if (!strcasecmp(nodename, "followMouse.focus")) {
 		rc.focus_follow_mouse = get_bool(content);
 	} else if (!strcasecmp(nodename, "raiseOnFocus.focus")) {
@@ -480,6 +482,7 @@ rcxml_init()
 	rc.font_size_activewindow = 10;
 	rc.font_size_menuitem = 10;
 	rc.font_size_osd = 10;
+	rc.menu_width = 110;
 	rc.doubleclick_time = 500;
 	rc.repeat_rate = 25;
 	rc.repeat_delay = 600;

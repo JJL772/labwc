@@ -29,6 +29,7 @@ struct rcxml {
 	int font_size_activewindow;
 	int font_size_menuitem;
 	int font_size_osd;
+	int menu_width;
 	/* Pointer to current theme */
 	struct theme *theme;
 

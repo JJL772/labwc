@@ -19,7 +19,8 @@
   -->
   <theme>
     <name></name>
-    <cornerRadius>8</cornerRadius>
+	<cornerRadius>8</cornerRadius>
+	<menuWidth>110</menuWidth>
     <font place="ActiveWindow"><name>sans</name><size>10</size></font>
     <font place="MenuItem"><name>sans</name><size>10</size></font>
     <font place="OSD"><name>sans</name><size>10</size></font>
